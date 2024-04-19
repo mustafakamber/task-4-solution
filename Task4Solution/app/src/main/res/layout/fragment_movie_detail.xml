@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <variable
+            name="selectedMovieDetail"
+            type="com.mustk.task4solution.model.Movie" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.MovieDetailFragment">
+
+        <ImageView
+            android:id="@+id/detailMovieImageView"
+            android:layout_width="@dimen/big_image_size"
+            android:layout_height="@dimen/extra_big_image_size"
+            android:layout_marginStart="@dimen/medium_spacing_size"
+            android:layout_marginEnd="@dimen/medium_spacing_size"
+            android:scaleType="centerCrop"
+            android:downloadImage="@{selectedMovieDetail.posterUrl}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.20"
+            tools:src="@drawable/sample_poster" />
+
+        <TextView
+            android:id="@+id/detailMovieNameText"
+            android:text="@{selectedMovieDetail.title}"
+            style="@style/movieTextMedium"
+            android:layout_marginTop="@dimen/large_spacing_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detailMovieImageView"
+            tools:text="@string/default_movie_name" />
+
+        <TextView
+            android:id="@+id/detailMovieYearText"
+            android:text="@{selectedMovieDetail.year}"
+            style="@style/movieTextSmall"
+            android:layout_marginTop="@dimen/small_spacing_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detailMovieNameText"
+            tools:text="@string/default_movie_year" />
+
+        <TextView
+            android:id="@+id/detailMovieDirectorText"
+            android:text="@{selectedMovieDetail.director}"
+            style="@style/movieTextSmall"
+            android:layout_marginTop="@dimen/small_spacing_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detailMovieYearText"
+            tools:text="@string/default_movie_director" />
+
+        <TextView
+            android:id="@+id/detailLeadRoleText"
+            android:text="@{selectedMovieDetail.actors}"
+            style="@style/movieTextSmall"
+            android:layout_marginStart="@dimen/large_spacing_size"
+            android:layout_marginTop="@dimen/small_spacing_size"
+            android:layout_marginEnd="@dimen/large_spacing_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detailMovieDirectorText"
+            tools:text="@string/default_movie_lead_role" />
+
+        <TextView
+            android:id="@+id/detailCountryText"
+            android:text="@{selectedMovieDetail.country}"
+            style="@style/movieTextSmall"
+            android:layout_marginTop="@dimen/small_spacing_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detailLeadRoleText"
+            tools:text="@string/default_movie_country" />
+
+        <TextView
+            android:id="@+id/detailImdbText"
+            android:text="@{selectedMovieDetail.imdbRating}"
+            style="@style/movieTextLarge"
+            android:layout_marginTop="@dimen/small_spacing_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detailCountryText"
+            tools:text="@string/default_movie_imdb" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

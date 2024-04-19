@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="movieRow"
+            type="com.mustk.task4solution.model.Movie" />
+
+        <variable
+            name="movieListener"
+            type="com.mustk.task4solution.adapter.MovieClickListener" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/rowMovieLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{()->movieListener.onMovieClicked(rowMovieLinearLayout,movieRow.imdbID)}"
+        android:orientation="horizontal"
+        android:padding="@dimen/medium_padding_size">
+
+        <TextView
+            android:id="@+id/rowMovieId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{movieRow.imdbID}"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/rowMovieImageView"
+            android:layout_width="@dimen/large_image_size"
+            android:layout_height="@dimen/huge_image_size"
+            android:layout_marginStart="@dimen/small_spacing_size"
+            android:downloadImage="@{movieRow.posterUrl}"
+            android:scaleType="centerCrop"
+            app:civ_border_color="?attr/colorSecondary"
+            app:civ_border_width="@dimen/medium_border_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/sample_poster" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/small_spacing_size"
+            android:layout_marginEnd="@dimen/small_spacing_size"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/rowMovieNameText"
+                style="@style/movieTextMedium"
+                android:layout_marginBottom="@dimen/small_spacing_size"
+                android:text="@{movieRow.title}"
+                tools:text="@string/default_movie_name" />
+
+            <TextView
+                android:id="@+id/rowMovieYearText"
+                style="@style/movieTextSmall"
+                android:text="@{movieRow.year}"
+                tools:text="@string/default_movie_year" />
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>
