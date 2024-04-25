@@ -1,4 +1,4 @@
-package com.mustk.task4solution.model
+package com.mustk.task4solution.data.model
 
 import com.google.gson.annotations.SerializedName
 

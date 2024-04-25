@@ -1,8 +1,11 @@
-package com.mustk.task4solution.api
+package com.mustk.task4solution.data.datasource
 
+import com.mustk.task4solution.data.service.MovieService
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class ApiHelperImp(private val movieService : ApiService) : ApiHelper{
+class MovieDataSourceImpl @Inject constructor(private val movieService: MovieService)  :
+    MovieDataSource {
     override fun fetchAllMovieData() = flow {
         emit(movieService.fetchAllMovieData())
     }

@@ -3,7 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("androidx.navigation.safeargs.kotlin")
     id ("kotlin-kapt")
-    //id ("com.google.dagger.hilt.android")
+    id ("kotlin-android")
+    id ("com.google.dagger.hilt.android")
 }
 
 android {
@@ -37,7 +38,6 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
-        dataBinding = true
         viewBinding = true
     }
 }
@@ -56,9 +56,8 @@ dependencies {
 
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 
-
-    //implementation("com.google.dagger:hilt-android:2.50")
-    //kapt("com.google.dagger:hilt-android-compiler:2.50")
+    implementation("com.google.dagger:hilt-android:2.50")
+    kapt("com.google.dagger:hilt-android-compiler:2.50")
 
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.core:core-ktx:1.12.0")

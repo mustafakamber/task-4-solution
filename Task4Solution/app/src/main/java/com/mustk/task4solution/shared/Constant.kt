@@ -1,4 +1,4 @@
-package com.mustk.task4solution.util
+package com.mustk.task4solution.shared
 
 object Constant {
     const val API_KEY = "23b9e3d9"

@@ -1,4 +1,4 @@
-package com.mustk.task4solution.model
+package com.mustk.task4solution.data.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -10,5 +10,5 @@ data class Movie(
     @SerializedName("Actors") val actors : String?,
     @SerializedName("Country") val country : String?,
     @SerializedName("imdbRating") val imdbRating : String?,
-    @SerializedName("Poster") val posterUrl : String?
+    @SerializedName("Poster") val posterURL : String?
 ) : Response()
