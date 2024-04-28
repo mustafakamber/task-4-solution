@@ -1,8 +1,8 @@
 package com.mustk.task4solution.di
 
-import com.mustk.task4solution.data.service.MovieService
 import com.mustk.task4solution.data.datasource.MovieDataSource
-import com.mustk.task4solution.data.datasource.MovieDataSourceImpl
+import com.mustk.task4solution.data.service.MovieService
+import com.mustk.task4solution.domain.MovieRepository
 import com.mustk.task4solution.shared.Constant.APIKEY_QUERY_PARAM
 import com.mustk.task4solution.shared.Constant.API_KEY
 import com.mustk.task4solution.shared.Constant.BASE_URL
@@ -60,6 +60,6 @@ object AppModule {
 
     @Provides
     fun provideMovieDataSource(movieService : MovieService): MovieDataSource {
-        return MovieDataSourceImpl(movieService)
+        return MovieRepository(movieService)
     }
 }

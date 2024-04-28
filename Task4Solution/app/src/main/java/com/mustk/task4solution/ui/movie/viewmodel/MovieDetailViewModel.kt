@@ -4,9 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.mustk.task4solution.data.datasource.MovieDataSource
 import com.mustk.task4solution.data.model.Movie
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-class MovieDetailViewModel @Inject constructor(private val movieDataSource: MovieDataSource) :
+@HiltViewModel
+class MovieDetailViewModel @Inject constructor(private val repository: MovieDataSource) :
     BaseViewModel() {
 
     private val _movieDetail = MutableLiveData<Movie>()
@@ -14,12 +16,11 @@ class MovieDetailViewModel @Inject constructor(private val movieDataSource: Movi
         get() = _movieDetail
 
     fun fetchMovieDetailFromAPI(imdbId: String) {
-        handleNetworkFlow(movieDataSource.fetchMovieData(imdbId)) { movieBody ->
-            with(movieBody) {
-                handleBody(response, error) {
-                    _movieDetail.value = this
-                }
+        safeResponse(
+            block = { repository.fetchMovieData(imdbId) },
+            successStatusData = { movieData ->
+                _movieDetail.value = movieData
             }
-        }
+        )
     }
 }

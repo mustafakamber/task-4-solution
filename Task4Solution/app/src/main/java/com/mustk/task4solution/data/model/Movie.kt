@@ -10,5 +10,9 @@ data class Movie(
     @SerializedName("Actors") val actors : String?,
     @SerializedName("Country") val country : String?,
     @SerializedName("imdbRating") val imdbRating : String?,
-    @SerializedName("Poster") val posterURL : String?
+    @SerializedName("Poster") val posterURL : String?,
+    @SerializedName("Genre") val genre : String?,
+    @SerializedName("Runtime") val runtime : String?,
+    @SerializedName("Plot") val overview : String?,
+    @SerializedName("Awards") val awards : String?,
 ) : Response()
