@@ -19,7 +19,7 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
     val loading: LiveData<Boolean>
         get() = _loading
 
-    fun <T : Any> safeResponse(
+    fun <T : Any> safeRequest(
         block: suspend () -> Resource<T>,
         successStatusData: (T) -> Unit
     ) {

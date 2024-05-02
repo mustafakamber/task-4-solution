@@ -14,10 +14,12 @@ import retrofit2.http.Query
 interface MovieService {
     @GET(ALL_MOVIE_EXT_URL)
     suspend fun fetchAllMovieData(): Response<Search>
+
     @GET(SLASH_QUERY_PARAM)
     suspend fun fetchMovieData(
         @Query(IMDB_ID_QUERY_PARAM) imdbId: String
     ): Response<Movie>
+
     @GET(SLASH_QUERY_PARAM)
     suspend fun searchMovieData(
         @Query(TITLE_QUERY_PARAM) title: String, @Query(TYPE_QUERY_PARAM) type: String

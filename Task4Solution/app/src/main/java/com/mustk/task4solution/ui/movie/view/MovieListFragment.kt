@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -14,6 +15,7 @@ import com.mustk.task4solution.databinding.FragmentMovieListBinding
 import com.mustk.task4solution.domain.MovieRepository
 import com.mustk.task4solution.ui.movie.adapter.MovieAdapter
 import com.mustk.task4solution.ui.movie.viewmodel.MovieListViewModel
+import com.mustk.task4solution.util.observe
 import javax.inject.Inject
 
 class MovieListFragment @Inject constructor(private var movieAdapter: MovieAdapter) : Fragment() {
@@ -68,28 +70,22 @@ class MovieListFragment @Inject constructor(private var movieAdapter: MovieAdapt
     }
 
     private fun observeLiveData() = with(binding) {
-        viewModel.movieList.observe(viewLifecycleOwner) { movies ->
-            movies?.let {
-                swipeRefreshLayout.isRefreshing = false
-                listLoading.visibility = View.GONE
-                listRecyclerView.visibility = View.VISIBLE
-                movieAdapter.submitList(movies)
-            }
+        observe(viewModel.movieList) { movies ->
+            swipeRefreshLayout.isRefreshing = false
+            listLoading.isVisible = false
+            listRecyclerView.isVisible = true
+            movieAdapter.submitList(movies)
         }
-        viewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
-            errorMessage?.let {
-                listRecyclerView.visibility = View.GONE
-                swipeRefreshLayout.isRefreshing = false
-                listLoading.visibility = View.GONE
-                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
-            }
+        observe(viewModel.errorMessage) { errorMessage ->
+            swipeRefreshLayout.isRefreshing = false
+            listLoading.isVisible = false
+            listRecyclerView.isVisible = false
+            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
         }
-        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
-            isLoading?.let {
-                if (isLoading){
-                    listRecyclerView.visibility = View.GONE
-                    listLoading.visibility = View.VISIBLE
-                }
+        observe(viewModel.loading) { isLoading ->
+            if (isLoading) {
+                listRecyclerView.isVisible = false
+                listLoading.isVisible = true
             }
         }
     }

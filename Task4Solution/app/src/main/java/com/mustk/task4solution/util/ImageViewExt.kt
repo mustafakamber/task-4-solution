@@ -20,7 +20,7 @@ fun ImageView.downloadImageFromUrl(url: String?) {
 fun placeHolderProgressBar(context : Context) : CircularProgressDrawable{
     return CircularProgressDrawable(context).apply {
         strokeWidth = 8f
-        centerRadius =40f
+        centerRadius = 40f
         start()
     }
 }

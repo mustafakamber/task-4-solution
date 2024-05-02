@@ -16,7 +16,7 @@ class MovieDetailViewModel @Inject constructor(private val repository: MovieData
         get() = _movieDetail
 
     fun fetchMovieDetailFromAPI(imdbId: String) {
-        safeResponse(
+        safeRequest(
             block = { repository.fetchMovieData(imdbId) },
             successStatusData = { movieData ->
                 _movieDetail.value = movieData

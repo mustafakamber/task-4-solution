@@ -1,11 +1,16 @@
 package com.mustk.task4solution.di
 
+import android.content.Context
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.bumptech.glide.request.RequestOptions
+import com.mustk.task4solution.R
 import com.mustk.task4solution.data.datasource.MovieDataSource
 import com.mustk.task4solution.data.service.MovieService
 import com.mustk.task4solution.domain.MovieRepository
 import com.mustk.task4solution.shared.Constant.APIKEY_QUERY_PARAM
 import com.mustk.task4solution.shared.Constant.API_KEY
 import com.mustk.task4solution.shared.Constant.BASE_URL
+import com.mustk.task4solution.util.placeHolderProgressBar
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -61,5 +66,21 @@ object AppModule {
     @Provides
     fun provideMovieDataSource(movieService : MovieService): MovieDataSource {
         return MovieRepository(movieService)
+    }
+
+    @Provides
+    fun provideGlideRequestOptions(context: Context): RequestOptions {
+        return RequestOptions()
+            .placeholder(placeHolderProgressBar(context))
+            .error(R.drawable.ic_launcher_foreground)
+    }
+
+    @Provides
+    fun providePlaceholderProgressBar(context: Context): CircularProgressDrawable {
+        return CircularProgressDrawable(context).apply {
+            strokeWidth = 8f
+            centerRadius =40f
+            start()
+        }
     }
 }

@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.mustk.task4solution.databinding.FragmentMovieDetailBinding
 import com.mustk.task4solution.domain.MovieRepository
 import com.mustk.task4solution.ui.movie.viewmodel.MovieDetailViewModel
 import com.mustk.task4solution.util.downloadImageFromUrl
+import com.mustk.task4solution.util.observe
 import javax.inject.Inject
 
 class MovieDetailFragment : Fragment() {
@@ -45,46 +47,32 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    private fun updateVisibility(loading: Boolean) {
-        val visibility = if (loading) View.GONE else View.VISIBLE
-        val oppositeVisibility = if (loading) View.VISIBLE else View.GONE
-        with(binding) {
-            detailLoading.visibility = oppositeVisibility
-            detailImageView.visibility = visibility
-            detailNameText.visibility = visibility
-            detailYearText.visibility = visibility
-            detailDirectorText.visibility = visibility
-            detailActorsText.visibility = visibility
-            detailCountryText.visibility = visibility
-            detailImdbText.visibility = visibility
-        }
+    private fun onLoadingChange(loading: Boolean) = with(binding) {
+        detailLoading.isVisible = loading
+        detailImageView.isVisible = !loading
+        detailNameText.isVisible = !loading
+        detailYearText.isVisible = !loading
+        detailDirectorText.isVisible = !loading
+        detailActorsText.isVisible = !loading
+        detailCountryText.isVisible = !loading
+        detailImdbText.isVisible = !loading
     }
 
     private fun observeLiveData() = with(binding) {
-        viewModel.movieDetail.observe(viewLifecycleOwner) { movieDetail ->
-            movieDetail?.let {
-                updateVisibility(false)
-                with(movieDetail) {
-                    detailImageView.downloadImageFromUrl(posterURL)
-                    detailNameText.text = title
-                    detailYearText.text = year
-                    detailDirectorText.text = director
-                    detailActorsText.text = actors
-                    detailCountryText.text = country
-                    detailImdbText.text = imdbRating
-                }
+        observe(viewModel.movieDetail) { movieDetail ->
+            with(movieDetail) {
+                detailImageView.downloadImageFromUrl(posterURL)
+                detailNameText.text = title
+                detailYearText.text = year
+                detailDirectorText.text = director
+                detailActorsText.text = actors
+                detailCountryText.text = country
+                detailImdbText.text = imdbRating
             }
         }
-        viewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
-            errorMessage?.let {
-                updateVisibility(false)
-                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
-            }
+        observe(viewModel.errorMessage) { errorMessage ->
+            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
         }
-        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
-            isLoading?.let {
-                updateVisibility(true)
-            }
-        }
+        observe(viewModel.loading, ::onLoadingChange)
     }
 }

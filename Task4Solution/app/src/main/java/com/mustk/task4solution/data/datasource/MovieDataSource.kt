@@ -9,7 +9,9 @@ import retrofit2.http.Query
 
 interface MovieDataSource {
     suspend fun fetchAllMovieData(): Resource<List<Movie>>
+
     suspend fun fetchMovieData(@Query(IMDB_ID_QUERY_PARAM) imdbId: String): Resource<Movie>
+    
     suspend fun searchMovieData(
         @Query(TITLE_QUERY_PARAM) title: String,
         @Query(TYPE_QUERY_PARAM) type: String

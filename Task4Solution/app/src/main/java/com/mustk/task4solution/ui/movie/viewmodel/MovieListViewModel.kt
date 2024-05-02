@@ -33,7 +33,7 @@ class MovieListViewModel @Inject constructor(private val repository: MovieDataSo
             delay(1000)
             if (movieTitle.isNotEmpty()) {
                 val queryTitle = movieTitle.lowercase().trim() + JOKER_KEY
-                safeResponse(
+                safeRequest(
                     block = { repository.searchMovieData(queryTitle, TYPE_KEY) },
                     successStatusData = { searchedMovies ->
                         _movieList.value = searchedMovies
@@ -46,7 +46,7 @@ class MovieListViewModel @Inject constructor(private val repository: MovieDataSo
     }
 
     private fun fetchMovieListFromAPI() {
-        safeResponse(
+        safeRequest(
             block = { repository.fetchAllMovieData() },
             successStatusData = { movieListData ->
                 _movieList.value = movieListData

@@ -15,4 +15,4 @@ data class Movie(
     @SerializedName("Runtime") val runtime : String?,
     @SerializedName("Plot") val overview : String?,
     @SerializedName("Awards") val awards : String?,
-) : Response()
+) : BaseResponse()
