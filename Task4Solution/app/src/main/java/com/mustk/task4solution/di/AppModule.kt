@@ -67,20 +67,4 @@ object AppModule {
     fun provideMovieDataSource(movieService : MovieService): MovieDataSource {
         return MovieRepository(movieService)
     }
-
-    @Provides
-    fun provideGlideRequestOptions(context: Context): RequestOptions {
-        return RequestOptions()
-            .placeholder(placeHolderProgressBar(context))
-            .error(R.drawable.ic_launcher_foreground)
-    }
-
-    @Provides
-    fun providePlaceholderProgressBar(context: Context): CircularProgressDrawable {
-        return CircularProgressDrawable(context).apply {
-            strokeWidth = 8f
-            centerRadius =40f
-            start()
-        }
-    }
 }

@@ -20,25 +20,24 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
         get() = _loading
 
     fun <T : Any> safeRequest(
-        block: suspend () -> Resource<T>,
+        response: suspend () -> Resource<T>,
         successStatusData: (T) -> Unit
     ) {
         viewModelScope.launch()
         {
-            val response = block()
-            when (response.status) {
+            when (response().status) {
                 Status.LOADING -> {
                     _loading.value = true
                 }
                 Status.ERROR -> {
                     _loading.value = false
-                    response.message?.let {
+                    response().message?.let {
                         _errorMessage.value = it
                     }
                 }
                 Status.SUCCESS -> {
                     _loading.value = false
-                    response.data?.let {
+                    response().data?.let {
                         successStatusData(it)
                     }
                 }

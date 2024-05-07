@@ -19,7 +19,7 @@ class MovieDetailFragment : Fragment() {
 
     @Inject lateinit var repository: MovieRepository
     private lateinit var binding: FragmentMovieDetailBinding
-    lateinit var viewModel: MovieDetailViewModel
+    private lateinit var viewModel: MovieDetailViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

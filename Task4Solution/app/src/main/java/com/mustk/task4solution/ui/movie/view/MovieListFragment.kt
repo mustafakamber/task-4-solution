@@ -23,7 +23,7 @@ class MovieListFragment @Inject constructor(private var movieAdapter: MovieAdapt
     @Inject
     lateinit var repository: MovieRepository
     private lateinit var binding: FragmentMovieListBinding
-    lateinit var viewModel: MovieListViewModel
+    private lateinit var viewModel: MovieListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +45,6 @@ class MovieListFragment @Inject constructor(private var movieAdapter: MovieAdapt
     }
 
     private fun setupMovieListScreen() = with(binding) {
-        viewModel.refreshAllMovieData()
         swipeRefreshLayout.setOnRefreshListener {
             swipeRefreshLayout.isRefreshing = true
             viewModel.refreshAllMovieData()
@@ -58,7 +57,7 @@ class MovieListFragment @Inject constructor(private var movieAdapter: MovieAdapt
             OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean = false
             override fun onQueryTextChange(titleQuery: String): Boolean {
-                viewModel.searchMovieListFromAPI(titleQuery)
+                viewModel.onSearchTextChange(titleQuery)
                 return true
             }
         })
@@ -82,11 +81,10 @@ class MovieListFragment @Inject constructor(private var movieAdapter: MovieAdapt
             listRecyclerView.isVisible = false
             Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
         }
-        observe(viewModel.loading) { isLoading ->
-            if (isLoading) {
-                listRecyclerView.isVisible = false
-                listLoading.isVisible = true
-            }
+        observe(viewModel.loading) { _ ->
+            swipeRefreshLayout.isRefreshing = false
+            listRecyclerView.isVisible = false
+            listLoading.isVisible = true
         }
     }
 }
