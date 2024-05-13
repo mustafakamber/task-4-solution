@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Task4Solution</string>
+    <string name="search_hint">Search in movie..</string>
+    <string name="default_movie_name">Batman Begins</string>
+    <string name="default_movie_year">2024</string>
+    <string name="default_movie_director">Zack Snyder</string>
+    <string name="default_movie_lead_role">Henry Cavill, Joseph Gordon Levitt, Scarlett Johansson</string>
+    <string name="default_movie_country">Switzerland</string>
+    <string name="default_movie_imdb">8.7</string>
+    <string name="connect_error_message">An error occurred while retrieving data, please try again later.</string>
+</resources>
